@@ -122,3 +122,6 @@ class ProductCategory(ModelBase):
     class Meta:
         db_table = 'product_category'
         managed = True
+        unique_together = [
+            ['category', 'product']
+        ]
