@@ -21,6 +21,9 @@ from core import viewsets
 router = DefaultRouter()
 router.register('employee', viewset=viewsets.EmployeeViewSet)
 router.register('department', viewset=viewsets.DepartmentViewSet)
+router.register('category', viewset=viewsets.CategoryViewSet)
+router.register('product', viewset=viewsets.ProductViewSet)
+router.register('product_category', viewset=viewsets.ProductCategoryViewSet)
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
