@@ -26,6 +26,6 @@ router.register('product', viewset=viewsets.ProductViewSet)
 router.register('product_category', viewset=viewsets.ProductCategoryViewSet)
 
 urlpatterns = [
-    # path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls),
     path('api/', include(router.urls))
 ]
