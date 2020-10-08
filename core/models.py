@@ -3,6 +3,7 @@ from django.db import models
 
 # Create your models here.
 
+
 class ModelBase(models.Model):
     id = models.AutoField(
         db_column='id',
@@ -42,8 +43,15 @@ class Department(ModelBase):
         db_table = 'department'
         managed = True
 
+    def __str__(self):
+        return self.name
+
 
 class Employee(ModelBase):
+    class GengerChoices(models.TextChoices):
+        M = 'M', 'Male'
+        F = 'F', 'Female'
+
     name = models.CharField(
         db_column='name',
         null=False,
@@ -54,6 +62,19 @@ class Employee(ModelBase):
         on_delete=models.DO_NOTHING,
         db_column='id_department',
         null=True
+    )
+    gender = models.CharField(
+        db_column='gender',
+        null=True,
+        max_length=1,
+        choices=GengerChoices.choices
+    )
+    salary = models.DecimalField(
+        db_column='salary',
+        max_digits=10,
+        decimal_places=2,
+        null=False,
+        default=0
     )
 
     class Meta:
