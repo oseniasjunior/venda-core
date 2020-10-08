@@ -1,5 +1,5 @@
 from core import models
-from django.db.models import Q, Case, When, CharField, Value, ExpressionWrapper, F, FloatField, Sum
+from django.db.models import Q, Case, When, CharField, Value, ExpressionWrapper, F, FloatField, Sum, Count
 
 
 def get_all_products():
@@ -53,4 +53,22 @@ def query_sum():
 
     print(queryset.query)
 
+    return queryset
+
+
+def query_sum2():
+    queryset = models.Employee.objects.aggregate(
+        total=Sum('salary', output_field=FloatField())
+    )
+
+    return queryset
+
+
+def total_emplyee_by_departmen():
+    queryset = models.Department.objects.values(
+        'name',
+    ).annotate(
+        total=Count('employee__id')
+    ).values('name', 'total')
+    print(queryset.query)
     return queryset
