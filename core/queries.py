@@ -1,5 +1,5 @@
 from core import models
-from django.db.models import Q, Case, When, CharField, Value
+from django.db.models import Q, Case, When, CharField, Value, ExpressionWrapper, F, FloatField, Sum
 
 
 def get_all_products():
@@ -34,4 +34,23 @@ def get_custom_query():
             default=Value('Normal', output_field=CharField())
         )
     ).values('id', 'name', 'status')
+    return queryset
+
+
+def gain_percentage():
+    queryset = models.Product.objects.annotate(
+        gain=ExpressionWrapper(F('price') * Value(0.3), output_field=FloatField())
+    ).values('id', 'name', 'price', 'gain')
+    return queryset
+
+
+def query_sum():
+    queryset = models.Employee.objects.values(
+        'gender'
+    ).annotate(
+        total=Sum('salary', output_field=FloatField())
+    ).values('gender', 'total')
+
+    print(queryset.query)
+
     return queryset
