@@ -14,7 +14,7 @@ class ModelBase(models.Model):
         null=False,
         auto_now_add=True
     )
-    modifed_at = models.DateTimeField(
+    modified_at = models.DateTimeField(
         db_column='modified_at',
         null=False,
         auto_now=True
@@ -82,6 +82,9 @@ class Category(ModelBase):
         db_table = 'category'
         managed = True
 
+    def __str__(self):
+        return self.name
+
 
 class Product(ModelBase):
     name = models.CharField(
@@ -103,6 +106,9 @@ class Product(ModelBase):
     class Meta:
         db_table = 'product'
         managed = True
+
+    def __str__(self):
+        return '{} - {}'.format(self.name, self.price)
 
 
 class ProductCategory(ModelBase):
