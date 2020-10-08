@@ -34,3 +34,11 @@ class ProductAdmin(admin.ModelAdmin):
     search_fields = ['name']
     list_per_page = 10
     inlines = [CategoryInLine]
+
+
+@admin.register(models.Employee)
+class EmployeeAdmin(admin.ModelAdmin):
+    list_display = ['id', 'name', 'salary', 'gender', 'department', 'active', 'modified_at']
+    list_display_links = ['id', 'name', 'salary', 'gender', 'department', 'active', 'modified_at']
+    search_fields = ['name']
+    list_per_page = 10
